@@ -24,21 +24,29 @@ body h2 {
   font-weight: 400;
 }
 
-img {
+picture {
   display: block;
   max-width: 100%;
 }
 
+picture > img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background-color: rgba(0, 0, 0);
+  z-index: 1000;
+}
 nav {
   background-color: rgba(0, 0, 0, 0.5);
-  /* color: white; */
   padding: 1rem;
-  /* height: var(--navbar-width); */
 }
 header > nav > span {
   text-transform: uppercase;
-  /* outline: 1px solid pink; */
-  /* font-size: 2rem; */
   white-space: nowrap;
   font-size: 1rem;
 }
@@ -48,7 +56,6 @@ nav > input[type="checkbox"] {
 }
 
 .top-nav {
-  /* height: 100vh; */
   position: fixed;
   top: 0;
   right: 0;
@@ -58,10 +65,8 @@ nav > input[type="checkbox"] {
   transform: translateX(100%);
   visibility: hidden;
   pointer-events: none;
-  /* transition: none; */
   z-index: 10;
   display: none;
-  transition: transform 0.3s ease, visibility 0s linear 0.3s;
 }
 
 #sidebar-active:checked ~ .top-nav {
@@ -76,7 +81,6 @@ nav > input[type="checkbox"] {
   position: absolute;
 }
 #sidebar-active:checked ~ #overlay {
-  /* background-color: red; */
   height: 100%;
   width: 100%;
   top: 0;
@@ -95,14 +99,12 @@ nav > input[type="checkbox"] {
   cursor: pointer;
   top: 1rem;
   right: 1rem;
-  /* color: white; */
   cursor: pointer;
 }
 .close-sidebar-button {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  /* color: white; */
   cursor: pointer;
 }
 
@@ -112,8 +114,6 @@ nav > input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: space-evenly; */
-  /* outline: 1px solid white; */
   gap: 1rem;
   margin-bottom: 0;
 }
@@ -145,17 +145,18 @@ nav > input[type="checkbox"] {
   color: white;
 }
 .banner {
+  background-color: #1b1b1b;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("./img/pizzaImg.jpg");
+    image-set(
+      url("./img/pizzaImg.webp") type("image/webp"),
+      url("./img/pizzaImg.jpg") type("image/jpeg")
+    );
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   padding-left: 4rem;
-  /* color: white; */
-  /* width: 100%; */
   flex: 1;
   min-height: 95vh;
-
   display: flex;
   align-items: center;
 }
@@ -166,14 +167,7 @@ nav > input[type="checkbox"] {
   flex-direction: column;
   gap: 3rem;
   font-size: 1.1rem;
-  /* align-items: center; */
-  /* height: 100vh; */
   justify-content: center;
-  /* align-items: center; */
-  /* height: calc(100vh - var(--navbar-width)); */
-  /* height: 100%; */
-  /* padding-block: 3rem; */
-  /* overflow: hidden; */
 }
 .banner-content > h1 {
   font-family: Quattrocento, sans-serif;
@@ -199,21 +193,18 @@ nav > input[type="checkbox"] {
 
 .about-us > h2 {
   text-transform: uppercase;
-  /* margin-bottom: 1rem; */
 }
 .about-us > .about-us__content > p {
   padding-block: 2rem;
   font-weight: 200;
 }
-.about-us__content > img {
+.about-us__content > :is(img, picture) {
   max-width: 250px;
   width: 100%;
   margin: auto;
-  /* min-height: 100%; */
 }
 
 .menu {
-  /* color: white; */
   font-weight: 200;
 }
 .menu > h2 {
@@ -223,17 +214,15 @@ nav > input[type="checkbox"] {
 .menu > p {
   padding-block: 2rem;
 }
-/* .menu-container {
-  padding-block: 2rem;
-} */
 
-.menu-container > .menu__item > img {
+.menu-container > .menu__item > :is(img, picture) {
   max-width: 250px;
   width: 100%;
   margin: auto;
 }
-.menu-container > .menu__item:last-child > img {
-  /* aspect-ratio: 1/1; */
+.menu-container > .menu__item:last-child > img,
+.menu-container > .menu__item:last-child > picture > img {
+  aspect-ratio: 1/0.75;
   max-height: 200px;
   object-fit: cover;
   object-position: 100% 70%;
@@ -260,9 +249,10 @@ nav > input[type="checkbox"] {
   padding-top: 2rem;
 }
 
-.carousel-item > img {
+.carousel-item > :is(img, picture) {
   max-height: 400px;
   object-fit: cover;
+  /* aspect-ratio: 0.5/1; */
 }
 .carousel-indicators [data-bs-target] {
   width: 6px;
@@ -275,26 +265,33 @@ nav > input[type="checkbox"] {
   display: grid;
   gap: 1rem;
 }
-.gallary-grid img {
+.gallary-grid :is(img, picture) {
   aspect-ratio: 1/1;
   object-fit: cover;
 }
+.gallary-grid > div:nth-child(3) > picture > img,
+.gallary-grid > div:nth-child(4) > picture > img,
+.gallary-grid > div:nth-child(3) > img,
+.gallary-grid > div:nth-child(4) > img {
+  object-position: 10% 100%;
+}
+
 .findus-main {
   padding-top: 2rem;
 }
 .findus_description {
   padding-top: 2rem;
 }
+.findus_description > div:first-of-type {
+  align-items: flex-start;
+}
 .findus_description > div {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
+
   gap: 1rem;
 }
-/* .findus_description > div > p,
-.findus_description > p {
-  margin: 0;
-} */
+
 .findus_description > div > span > i {
   font-size: 1.5rem;
 }
@@ -311,9 +308,7 @@ nav > input[type="checkbox"] {
 .findus_description .contact_us > div > p {
   margin: 0;
 }
-/* .findus_description .contact_us > div > p:first-child {
-  align-self: flex-end;
-} */
+
 .findus_map > iframe {
   width: 100%;
   filter: invert(100%);
@@ -380,7 +375,6 @@ nav > input[type="checkbox"] {
     pointer-events: all;
     display: block;
     visibility: visible;
-    /* transition: transform 0.5s ease, opacity 0.5s ease; */
   }
   .top-nav > .main-nav {
     display: flex;
@@ -397,7 +391,6 @@ nav > input[type="checkbox"] {
     min-height: 90vh;
   }
   .banner-content {
-    /* gap: 3rem; */
     font-size: 1.5rem;
   }
   .banner-content > h1 {
@@ -408,7 +401,6 @@ nav > input[type="checkbox"] {
 
   .banner-content > p {
     border-top: 0.5rem solid rgb(231, 72, 72);
-    /* padding-top: 5rem; */
   }
   .container {
     max-width: 100rem;
@@ -426,12 +418,12 @@ nav > input[type="checkbox"] {
   .about-us h2 {
     margin-bottom: 2rem;
   }
-  .about-us__content > img,
+  .about-us__content > :is(img, picture),
   .about-us__content > p {
     flex: 1;
   }
 
-  .about-us__content > img {
+  .about-us__content > :is(img, picture) {
     min-width: 200px;
   }
   .about-us > .about-us__content > p {
@@ -448,15 +440,26 @@ nav > input[type="checkbox"] {
     gap: 1rem;
   }
 
-  .menu-container > .menu__item > img,
+  .menu-container > .menu__item > :is(img, picture),
   .menu__item-content {
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;
+    margin: 0;
+    max-width: none;
   }
+  .menu-container > .menu__item > picture > img,
   .menu-container > .menu__item > img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .menu-container > .menu__item > :is(img, picture) {
     border-radius: 0.7rem;
     object-fit: contain;
     min-width: 0;
     width: 100%;
+    margin: 0;
   }
 
   .menu__item > h6 {
@@ -469,14 +472,23 @@ nav > input[type="checkbox"] {
     margin: 0;
     max-width: max-content;
     padding-block: 0;
+    padding-top: 0.5rem;
   }
   .menu__item-content > p {
     font-size: 0.9rem;
   }
-  .menu-container > .menu__item:last-child > img {
+
+  .menu-container > .menu__item:last-child > img,
+  .menu-container > .menu__item:last-child > picture > img {
+    max-height: 200px;
+    object-fit: cover;
+    object-position: 100% 70%;
     aspect-ratio: 1/0.7;
-    max-width: 200px;
+    height: 100%;
+    width: 100%;
+    display: block;
   }
+
   .carousel-indicators [data-bs-target] {
     width: 8px;
     height: 8px;
@@ -514,9 +526,6 @@ nav > input[type="checkbox"] {
     justify-content: center;
     width: 100%;
     font-size: 1.5rem;
-    /* visibility: visible;
-    display: block; */
-    /* gap: 3rem; */
   }
   .top-nav > .socials {
     display: flex;
@@ -528,13 +537,10 @@ nav > input[type="checkbox"] {
     font-size: 1.5rem;
   }
   .banner {
-    /* padding-top: 9rem;
-    padding-left: 6rem; */
     padding-block: 3rem;
   }
   .banner-content {
     width: 50%;
-    /* gap: 3rem; */
     font-size: 1rem;
   }
   .banner-content > h1 {
@@ -543,7 +549,6 @@ nav > input[type="checkbox"] {
 
   .banner-content > p {
     border-top: 0.7rem solid rgb(231, 72, 72);
-    /* padding-block: 5rem; */
     font-size: 2rem;
   }
   .container {
@@ -573,11 +578,16 @@ nav > input[type="checkbox"] {
     width: 12px;
     height: 12px;
   }
+
+  .carousel-inner img {
+    height: 400px;
+    object-fit: cover;
+  }
   .gallary-grid {
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(4, 100px);
   }
-  .gallary-grid img {
+  .gallary-grid :is(img, picture) {
     aspect-ratio: 0;
     width: 100%;
     height: 100%;
